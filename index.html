@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Download Book PDF</title>
+  <meta name="description" content="Download the official PDF version of this book. Secure, instant access with verified reader reviews." />
+  <script src="https://cdn.tailwindcss.com">  // PDF MODAL HANDLER
+  const openBtn = document.getElementById('openPdf');
+  const closeBtn = document.getElementById('closePdf');
+  const modal = document.getElementById('pdfModal');
+
+  if (openBtn && modal) {
+    openBtn.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    });
+  }
+
+  if (closeBtn && modal) {
+    closeBtn.addEventListener('click', () => {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    });
+  }
+  // ==============================
+  // ADVANCED FEATURES
+  // ==============================
+
+  // ⏱️ AD REFRESH EVERY X SECONDS
+  const adBanner = document.getElementById('adBanner');
+  const adRefreshSeconds = 15; // change interval
+
+  const adSizes = [
+    { w: 480, h: 60, label: '480x60' },
+    { w: 320, h: 50, label: '320x50' }
+  ];
+
+  function refreshAd() {
+    const isMobile = window.innerWidth < 500;
+    const size = isMobile ? adSizes[1] : adSizes[0];
+
+    adBanner.style.width = size.w + 'px';
+    adBanner.style.height = size.h + 'px';
+    adBanner.innerText = `Ad Banner ${size.label}`;
+  }
+
+  refreshAd();
+  setInterval(refreshAd, adRefreshSeconds * 1000);
+
+  // 🚫 SOFT PROTECTION (Disable Right Click & Save)
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && ['s', 'p'].includes(e.key.toLowerCase())) {
+      e.preventDefault();
+    }
+  });
+
+  // 📊 TRACK PDF OPEN WITH HISTATS
+  var _Hasync = _Hasync || [];
+  _Hasync.push(['Histats.start', '1,XXXXXXX,4,0,0,0,00010000']); // replace ID
+  _Hasync.push(['Histats.track_hits', '']);
+
+  (function() {
+    var hs = document.createElement('script');
+    hs.type = 'text/javascript';
+    hs.async = true;
+    hs.src = '//s10.histats.com/js15_as.js';
+    (document.head || document.body).appendChild(hs);
+  })();
+
+  const openBtnTrack = document.getElementById('openPdf');
+  if (openBtnTrack) {
+    openBtnTrack.addEventListener('click', () => {
+      _Hasync.push(['Histats.track_event', 'PDF', 'Open', 'PDF Reader']);
+    });
+  }
+</script>
+</head>
+<body class="bg-gray-50 min-h-screen flex items-center justify-center px-4">
+
+  <!-- Main Card -->
+  <main class="max-w-5xl w-full bg-white shadow-xl rounded-2xl p-6 md:p-10 grid md:grid-cols-2 gap-8 md:gap-12">
+
+    <!-- Book Image -->
+    <div class="flex items-center justify-center">
+      <img id="bookCover" class="rounded-2xl shadow-md w-56 md:w-72 h-auto" alt="Book Cover" />
+    </div>
+
+    <!-- Book Info -->
+    <div class="flex flex-col justify-center">
+      <h1 id="bookTitle" class="text-2xl md:text-3xl font-bold mb-3">
+        Your Book Title Here
+      </h1>
+
+      <p id="bookDescription" class="text-gray-600 mb-5 leading-relaxed">
+        Download the official PDF version of this book. Instant access, high-quality content, and easy reading on any device.
+      </p>
+
+      <!-- Primary CTA -->
+      <button id="openPdf"
+         class="w-full md:w-auto text-center bg-black text-white px-6 py-4 rounded-xl text-lg font-semibold hover:bg-gray-800 transition">
+        Download PDF
+      </button>
+
+      <!-- Rating & Download Counter -->
+      <div class="flex items-center gap-4 mt-6 mb-4">
+        <div class="text-3xl font-bold" id="ratingValue">4.8</div>
+        <div>
+          <div class="text-yellow-500 text-lg">★★★★★</div>
+          <div class="text-xs text-gray-500">Based on <strong id="downloadCount">1</strong> downloads</div>
+        </div>
+      </div>
+
+      <!-- Trust Strip -->
+      <div class="flex flex-wrap gap-4 text-sm text-gray-600 mt-4">
+        <span>🛡️ Secure download</span>
+        <span>📧 No spam</span>
+        <span>⚡ Instant access</span>
+      </div>
+
+      <!-- Reviews -->
+      <section class="mt-8">
+        <h2 class="text-lg font-semibold mb-4">What readers say</h2>
+
+        <div id="reviewSlider" class="relative">
+          <div class="review bg-gray-50 p-4 rounded-xl">
+            <p class="review-text text-sm text-gray-700">“Very actionable strategies with real-world examples.”</p>
+            <p class="text-xs text-green-600 mt-2">★★★★★ — 🧾 Verified Download</p>
+          </div>
+          <div class="review bg-gray-50 p-4 rounded-xl hidden">
+            <p class="review-text text-sm text-gray-700">“Clear explanations and easy to follow. Worth the download.”</p>
+            <p class="text-xs text-green-600 mt-2">★★★★★ — 🧾 Verified Download</p>
+          </div>
+          <div class="review bg-gray-50 p-4 rounded-xl hidden">
+            <p class="review-text text-sm text-gray-700">“Helped me apply the concepts immediately.”</p>
+            <p class="text-xs text-green-600 mt-2">★★★★☆ — 🧾 Verified Download</p>
+          </div>
+        </div>
+
+        <p class="text-xs text-gray-400 mt-3">
+          *Reviews are user-submitted and for informational purposes only.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <!-- PDF Reader Modal -->
+  <div id="pdfModal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
+    <div class="bg-white w-full max-w-4xl h-[90vh] rounded-2xl shadow-xl flex flex-col overflow-hidden">
+
+      <!-- Ad Banner 480x60 -->
+      <div class="flex items-center justify-center bg-gray-100 border-b p-2">
+        <!-- Responsive Ad Banner -->
+        <div id="adBanner" class="flex items-center justify-center text-sm text-gray-600 bg-gray-300"
+             style="width:480px;height:60px;">
+          Ad Banner 480x60
+        </div>
+      </div>
+      </div>
+
+      <!-- PDF Viewer -->
+      <iframe
+        id="pdfFrame"
+        src="/downloads/book.pdf#toolbar=0"
+        class="flex-1 w-full"
+        loading="lazy">
+      </iframe>
+
+      <!-- Watermark -->
+      <div class="absolute bottom-6 right-6 text-xs text-gray-400 opacity-60 pointer-events-none">
+        © Downloaded from this site
+      </div>
+
+      <!-- Close -->
+      <button id="closePdf" class="absolute top-4 right-4 bg-black text-white rounded-full w-10 h-10 flex items-center justify-center">
+        ✕
+      </button>
+    </div>
+  </div>
+
+  
+
+  <!-- Scripts -->
+  <script>
+  // ==============================
+  // FINAL PRODUCTION SCRIPT (NO API)
+  // ==============================
+
+  // ASIN CONFIG
+  const ASIN = "B0XXXXXXX"; // replace with real ASIN
+
+  // Book cover (ASIN-based)
+  const coverImg = document.getElementById("bookCover");
+  if (coverImg) {
+    coverImg.src = `https://images-na.ssl-images-amazon.com/images/P/${ASIN}.01.LZZZZZZZ.jpg`;
+    coverImg.onerror = () => {
+      coverImg.src = "https://dummyimage.com/400x600/111/fff&text=Book+Cover";
+    };
+  }
+
+  // SMART REVIEWS (per niche)
+  const niche = "business"; // business | tech | health
+
+  const smartReviews = {
+    business: [
+      "Very actionable strategies with real-world examples.",
+      "Perfect for entrepreneurs and professionals.",
+      "Saved me weeks of trial and error."
+    ],
+    tech: [
+      "Explained complex topics in a simple way.",
+      "Great reference guide for developers.",
+      "Well structured and easy to follow."
+    ],
+    health: [
+      "Easy to understand and practical advice.",
+      "Motivating and beginner-friendly.",
+      "Great starting point for anyone."
+    ]
+  };
+
+  document.querySelectorAll('.review-text').forEach((el, i) => {
+    if (smartReviews[niche] && smartReviews[niche][i]) {
+      el.innerText = `“${smartReviews[niche][i]}”`;
+    }
+  });
+
+  // AUTO-ROTATING REVIEW SLIDER
+  const reviews = document.querySelectorAll('#reviewSlider .review');
+  let current = 0;
+
+  if (reviews.length > 1) {
+    setInterval(() => {
+      reviews[current].classList.add('hidden');
+      current = (current + 1) % reviews.length;
+      reviews[current].classList.remove('hidden');
+    }, 4000);
+  }
+
+  // OPTIONAL: RANDOM POSITIVE SOCIAL PROOF (SAFE CHECK)
+  const ratingEl = document.getElementById('ratingValue');
+  const downloadsEl = document.getElementById('downloadCount');
+
+  if (ratingEl && downloadsEl) {
+    const rating = (Math.random() * (4.9 - 4.6) + 4.6).toFixed(1);
+    const downloads = Math.floor(Math.random() * 1243) + 1;
+
+    ratingEl.innerText = rating;
+    downloadsEl.innerText = downloads.toLocaleString();
+  }
+</script>
+</body>
+</html>
